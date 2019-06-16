@@ -1,6 +1,7 @@
-FROM microsoft/dotnet:1.1-runtime-nanoserver
+#FROM microsoft/dotnet:1.1-runtime-nanoserver
+FROM mcr.microsoft.com/dotnet/core/runtime:2.2.5-nanoserver-1903
 
 WORKDIR /dotnetapp
-COPY ./src/bin/Debug/netcoreapp1.1/publish .
+COPY ./src/bin/Debug/netcoreapp2.1/publish .
 
 CMD ["dotnet", "HelloWorld.NetCore.dll"]
