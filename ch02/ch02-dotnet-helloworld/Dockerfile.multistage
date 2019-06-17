@@ -1,15 +1,19 @@
 # build stage
-FROM microsoft/dotnet:1.1-sdk-nanoserver AS builder
+#FROM microsoft/dotnet:1.1-sdk-nanoserver AS builder
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2.300-nanoserver-1903 AS builder
 
 WORKDIR /src
 COPY src/ .
 
-RUN dotnet restore; dotnet publish
+#RUN dotnet restore; dotnet publish
+RUN dotnet restore && dotnet publish
 
 # final image stage
-FROM microsoft/dotnet:1.1-runtime-nanoserver
+#FROM microsoft/dotnet:1.1-runtime-nanoserver
+FROM mcr.microsoft.com/dotnet/core/runtime:2.2.5-nanoserver-1903
 
 WORKDIR /dotnetapp
-COPY --from=builder /src/bin/Debug/netcoreapp1.1/publish .
+#COPY --from=builder /src/bin/Debug/netcoreapp1.1/publish .
+COPY --from=builder /src/bin/Debug/netcoreapp2.1/publish .
 
 CMD ["dotnet", "HelloWorld.NetCore.dll"]
